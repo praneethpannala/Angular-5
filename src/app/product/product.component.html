@@ -1,0 +1,91 @@
+
+<div class="card prod-list-box">
+    <div class="card-header">
+        <h5>Product List View</h5>
+        <input [(ngModel)]='filterProduct' name='filter' placeholder="Search..">
+        <button type="button" class="btn btn-primary" style="float:right" (click)='showStatus()'>Show Status</button>
+        <button type="button" class="btn btn-primary" style="float:right;margin-right:10px" (click)="lgModal.show()">Add Detail</button>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Color</th>
+                    <th scope="col" *ngIf='showStatusVar'>Status</th>
+                    <th scope="col" *ngIf='!showStatusVar'>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let prod of filteredProduct'>
+                    <td> 
+                        <a [routerLink]="['/product',prod.title]">{{prod.title | capitalise}}</a></td>
+                    <td>{{prod.description}}</td>
+                    <td>{{prod.color}}</td>
+                    <td *ngIf='showStatusVar'>{{prod.status}}</td>
+                    <td *ngIf='!showStatusVar'><prod-star [rating]='prod.starRating'></prod-star></td>
+                    <td><button type="button" class="btn btn-primary" (click)="editDetails(prod)">Edit</button>
+                    </td>
+                    <td><button type="button" class="btn btn-primary" (click)="deleteDetails(prod)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Large modal</h4>
+                <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding:50px">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Title</label>
+                            <input type="text" [(ngModel)]='obj.title' name='title' class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Description</label>
+                            <input type="text" [(ngModel)]='obj.description' name='description' class="form-control" id="inputPassword4" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Color</label>
+                        <input type="text" [(ngModel)]='obj.color' name='color' class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress2">Status</label>
+                        <input type="text" [(ngModel)]='obj.status' name='status' class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" [(ngModel)]='obj.city' name='city' class="form-control" id="inputCity">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" [(ngModel)]='obj.state' name='state' class="form-control">
+                                <option selected>Telangana</option>
+                                <option>Andhra</option>
+                                <option>Rajastan</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" [(ngModel)]='obj.zip' name='zip' class="form-control" id="inputZip">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" (click)="saveDetails(obj)">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

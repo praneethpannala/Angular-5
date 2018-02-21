@@ -1,0 +1,19 @@
+<div class="card prod-list-box col-md-6">
+    <div class="card-header">
+      {{obj[0].title}}
+    </div>
+    <div class="card-body">
+      <div class="row"> 
+        <label>Description</label>: <div>{{obj[0].description}}</div> 
+      </div>
+      <div class="row"> 
+        <label>Color</label>: <div>{{obj[0].color}}</div> 
+      </div>
+      <div class="row"> 
+        <label>Status</label>: <div>{{obj[0].status}}</div> 
+      </div>
+    </div>
+    <div class="card-footer bg-transparent">
+      <button class="btn btn-primary" (click)='onBack()'>Back</button>
+    </div>
+</div>
